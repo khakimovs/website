@@ -1,17 +1,10 @@
-import { allBlogs } from 'contentlayer/generated';
-
 export default async function sitemap() {
-  const blogs = allBlogs.map((post) => ({
-    url: `https://leerob.io/blog/${post.slug}`,
-    lastModified: post.publishedAt,
-  }));
-
-  const routes = ['', '/about', '/uses'].map(
+  const routes = ['', '/about'].map(
     (route) => ({
-      url: `https://leerob.io${route}`,
+      url: `https://khakimovs.uz${route}`,
       lastModified: new Date().toISOString().split('T')[0],
     })
   );
 
-  return [...routes, ...blogs];
+  return [...routes];
 }

@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Lee Robinson',
     description: 'Developer, writer, and creator.',
-    url: 'https://leerob.io',
+    url: 'https://khakimovs.uz',
     siteName: 'Lee Robinson',
     images: [
       {
-        url: 'https://leerob.io/og.jpg',
+        url: 'https://khakimovs.uz/og.jpg',
         width: 1920,
         height: 1080,
       },
