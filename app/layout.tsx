@@ -14,15 +14,15 @@ const kaisei = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Lee Robinson',
-    template: '%s | Lee Robinson',
+    default: 'Khakimovs',
+    template: '%s | Khakimovs',
   },
-  description: 'Developer, writer, and creator.',
+  description: 'Khakimov\'s Family Branch.',
   openGraph: {
-    title: 'Lee Robinson',
-    description: 'Developer, writer, and creator.',
+    title: 'Khakimovs',
+    description: 'Khakimov\'s Family Branch.',
     url: 'https://khakimovs.uz',
-    siteName: 'Lee Robinson',
+    siteName: 'Khakimovs',
     images: [
       {
         url: 'https://khakimovs.uz/og.jpg',
@@ -45,15 +45,11 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Lee Robinson',
+    title: 'Khakimovs',
     card: 'summary_large_image',
   },
   icons: {
     shortcut: '/favicon.ico',
-  },
-  verification: {
-    google: 'eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw',
-    yandex: '14d2e73487fa6c71',
   },
 };
 
