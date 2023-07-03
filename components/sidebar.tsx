@@ -16,7 +16,7 @@ const navItems = {
 
 function Logo() {
   return (
-    <Link aria-label="Lee Robinson" href="/">
+    <Link aria-label="Khakimovs Family" href="/">
       <motion.svg
         className="text-black dark:text-white h-[25px] md:h-[37px]"
         width="25"
@@ -51,7 +51,7 @@ function Logo() {
             type: 'spring',
             stiffness: 50,
           }}
-          d="M232 314.998H129.852L232 232.887V314.998Z"
+          d="M213,316 L92,316 L92,193 L213,316 Z M213,0 L92,0 L92,123 L213,0 Z"
           fill="currentColor"
         />
       </motion.svg>
