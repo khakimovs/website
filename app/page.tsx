@@ -24,7 +24,7 @@ export default async function HomePage() {
             href="https://twitter.com/orzklv"
           >
             <ArrowIcon />
-            <p className="h-7">follow me on twitter</p>
+            <p className="h-7">follow us on twitter</p>
           </a>
         </li>
         <li>
