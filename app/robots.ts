@@ -2,10 +2,10 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: "*",
       },
     ],
-    sitemap: 'https://khakimovs.uz/sitemap.xml',
-    host: 'https://khakimovs.uz',
+    sitemap: "https://khakimovs.uz/sitemap.xml",
+    host: "https://khakimovs.uz",
   };
 }

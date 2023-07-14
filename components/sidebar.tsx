@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { LayoutGroup, motion } from 'framer-motion';
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { LayoutGroup, motion } from "framer-motion";
 
 const navItems = {
-  '/': {
-    name: 'home',
+  "/": {
+    name: "home",
   },
-  '/about': {
-    name: 'about',
+  "/about": {
+    name: "about",
   },
 };
 
@@ -36,7 +36,7 @@ function Logo() {
           }}
           transition={{
             duration: 0.5,
-            type: 'spring',
+            type: "spring",
             stiffness: 50,
           }}
           d="M39 316V0"
@@ -48,7 +48,7 @@ function Logo() {
           animate={{ x: 0, opacity: 1 }}
           transition={{
             duration: 0.5,
-            type: 'spring',
+            type: "spring",
             stiffness: 50,
           }}
           d="M213,316 L92,316 L92,193 L213,316 Z M213,0 L92,0 L92,123 L213,0 Z"
@@ -60,9 +60,9 @@ function Logo() {
 }
 
 export default function Navbar() {
-  let pathname = usePathname() || '/';
-  if (pathname.includes('/blog/')) {
-    pathname = '/blog';
+  let pathname = usePathname() || "/";
+  if (pathname.includes("/blog/")) {
+    pathname = "/blog";
   }
 
   return (
@@ -84,11 +84,11 @@ export default function Navbar() {
                     key={path}
                     href={path}
                     className={clsx(
-                      'transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle',
+                      "transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle",
                       {
-                        'text-neutral-500': !isActive,
-                        'font-bold': isActive,
-                      }
+                        "text-neutral-500": !isActive,
+                        "font-bold": isActive,
+                      },
                     )}
                   >
                     <span className="relative py-[5px] px-[10px]">
@@ -98,7 +98,7 @@ export default function Navbar() {
                           className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 rounded-md z-[-1]"
                           layoutId="sidebar"
                           transition={{
-                            type: 'spring',
+                            type: "spring",
                             stiffness: 350,
                             damping: 30,
                           }}
