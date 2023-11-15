@@ -23,7 +23,7 @@ export default async function handler(req: NextRequest) {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           backgroundImage: "url(https://khakimovs.uz/og-bg.png)",
         }}
       >
@@ -31,6 +31,7 @@ export default async function handler(req: NextRequest) {
           style={{
             marginLeft: 190,
             marginRight: 190,
+            marginTop: 150,
             display: "flex",
             fontSize: 130,
             fontFamily: "Kaisei Tokumin",
