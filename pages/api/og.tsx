@@ -22,7 +22,7 @@ export default async function handler(req: NextRequest) {
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
+          alignItems: "flex-end",
           justifyContent: "center",
           backgroundImage: "url(https://khakimovs.uz/og-bg.png)",
         }}
