@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     default: "Khakimov's Family",
     template: "%s | Khakimov's Family",
   },
-  description: "Khakimov's Family Branch.",
+  description: "Official website of Khakimov's Family Branch.",
   openGraph: {
     title: "Khakimovs",
-    description: "Khakimov's Family Branch.",
+    description: "Official website of Khakimov's Family Branch.",
     url: "https://khakimovs.uz",
     siteName: "Khakimov's Family",
     images: [
