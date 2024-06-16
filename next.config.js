@@ -2,6 +2,8 @@ const { get } = require("@vercel/edge-config");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
+  output: 'standalone',
   images: {
     formats: ["image/avif", "image/webp"],
     // Twitter Profile Picture
