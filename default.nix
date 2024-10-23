@@ -7,33 +7,19 @@
   in
   import nixpkgs { overlays = [ ]; }
 , ...
-}: pkgs.stdenv.mkDerivation rec {
-  pname = "khakimovs";
-  version = "0.1.0";
-
-  src = ./.;
-
-  nativeBuildInputs = with pkgs; [
-    pnpm
-    nodejs_20
-    openssl
-    cacert
-  ];
+}: pkgs.buildNpmPackage rec {
+  name = "khakimovs";
 
   buildInputs = with pkgs; [
-    openssl
-    cacert
+    nodejs_20
   ];
 
-  buildPhase = ''
-    pnpm install
-    pnpm build
-  '';
+  src = ./.;
+  npmDepsHash = "sha256-ynuszgmpe+cRG5hgy2YtRQbZJUxBzNXMTw0vdhJu74U=";
 
   installPhase = ''
     mkdir -p $out/www
+    npm run build
     mv ./out/* $out/www
   '';
-
-  SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 }

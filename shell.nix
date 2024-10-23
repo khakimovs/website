@@ -8,7 +8,6 @@ pkgs.stdenv.mkDerivation {
     nixpkgs-fmt
 
     # Nodejs
-    pnpm
     nodejs_20
   ];
 
