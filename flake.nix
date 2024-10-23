@@ -2,11 +2,13 @@
   description = "Khakimov's Website";
 
   inputs = {
-  # Too old to work with most libraries
-  # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+  # Nixpkgs
+  nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
-  # Perfect!
-  nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+  # You can access packages and modules from different nixpkgs revs
+  # at the same time. Here's an working example:
+  # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+  # Also see the 'unstable-packages' overlay at 'overlays/home.nix'.
 
   # The flake-utils library
   flake-utils.url = "github:numtide/flake-utils";
