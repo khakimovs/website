@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { GitHubIcon, ArrowIcon } from "components/icons";
+import { GitHubIcon, ArrowIcon, ViewsIcon } from "components/icons";
+import { LinkButton } from "components/link";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "VP of Developer Experience at Vercel.",
+  description: "Page about Khakimov's Family Branch.",
 };
 
 export default function AboutPage() {
@@ -33,26 +34,18 @@ export default function AboutPage() {
           society but has also significantly shaped various academic and
           professional landscapes.
         </p>
-        <p className="mb-8">
+        <p>
           Our mission, as a family, is to continue this legacy of innovation and
           influence. We strive to contribute to society through our research, to
           pioneer change, and to inspire others through our accomplishments.
         </p>
-        <div className="flex flex-col gap-2 md:flex-row md:gap-2">
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/khakimovs"
-            className="flex w-full border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 no-underline items-center text-neutral-800 dark:text-neutral-200 hover:dark:bg-neutral-900 hover:bg-neutral-100 transition-all justify-between"
-          >
-            <div className="flex items-center">
-              <GitHubIcon />
-              <div className="ml-3">GitHub</div>
-            </div>
-            <ArrowIcon />
-          </a>
-        </div>
+        <p className="mb-8">
+          <h3>We are affiliated with many organizations:</h3>
+        </p>
+
+        <LinkButton text="Center for Economic Research and Reforms" link="https://cerr.uz/leadership" />
+        <LinkButton text="Floss Uzbekistan" link="https://floss.uz/about#team" />
       </div>
-    </section>
+    </section >
   );
 }

@@ -1,25 +1,64 @@
-{ pkgs ? let
-    lock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
-    nixpkgs = fetchTarball {
-      url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
-      sha256 = lock.narHash;
-    };
-  in
-  import nixpkgs { overlays = [ ]; }
-, ...
-}: pkgs.buildNpmPackage rec {
-  name = "khakimovs";
+{
+  pkgs ?
+    let
+      lock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
+      nixpkgs = fetchTarball {
+        url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
+        sha256 = lock.narHash;
+      };
+    in
+    import nixpkgs { overlays = [ ]; },
+  ...
+}:
+let
+  manifest = pkgs.lib.importJSON ./package.json;
 
-  buildInputs = with pkgs; [
-    nodejs_20
-  ];
+  exec = pkgs.writeShellScript "${manifest.name}-start.sh" ''
+    # Change working directory to script
+    cd "$(dirname "$0")/../lib"
+
+    ${pkgs.lib.getExe pkgs.nodejs} ./server.js
+  '';
+in
+pkgs.buildNpmPackage rec {
+  pname = manifest.name;
+  version = manifest.version;
 
   src = ./.;
-  npmDepsHash = "sha256-ynuszgmpe+cRG5hgy2YtRQbZJUxBzNXMTw0vdhJu74U=";
+  npmDepsHash = "sha256-9I8/0DQV9vT/ENaauMD1n7LedIX1JxRF0Zh6fonYBxA=";
+
+  nativeBuildInputs = with pkgs; [
+    nodejs
+    corepack
+  ];
+
+  buildInputs = with pkgs; [
+    openssl
+    vips
+  ];
 
   installPhase = ''
-    mkdir -p $out/www
-    npm run build
-    mv ./out/* $out/www
+    # Create output directory
+    mkdir -p $out
+
+    # Copy standalone as library
+    cp -R ./.next/standalone $out/lib
+
+    # Copy static contents
+    if [ -d "./.next/static" ]; then
+      cp -R ./.next/static $out/lib/.next/static
+    fi
+
+    # Copy public assets
+    if [ -d "./public" ]; then
+      cp -R ./public $out/lib/public
+    fi
+
+    # Create executable directory
+    mkdir -p $out/bin
+
+    # Copy shell script to executables
+    cp -r ${exec} $out/bin/${manifest.name}-start
   '';
+
 }

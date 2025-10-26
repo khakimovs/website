@@ -12,6 +12,9 @@ const navItems = {
   "/about": {
     name: "about",
   },
+  "https://tree.khakimovs.uz": {
+    name: "tree",
+  },
 };
 
 function Logo() {

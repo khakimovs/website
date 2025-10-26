@@ -2,35 +2,33 @@
   description = "Khakimov's Website";
 
   inputs = {
-    # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/home.nix'.
-
-    # The flake-utils library
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
-    { nixpkgs
-    , flake-utils
-    , ...
-    } @ inputs:
-    flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
     {
-      # Nix script formatter
-      formatter = pkgs.nixpkgs-fmt;
-
-      # Development environment
-      devShells.default = import ./shell.nix { inherit pkgs; };
-
-      # Output package
-      packages.default = pkgs.callPackage ./. { };
-    });
+      self,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { ... }:
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+        ];
+        perSystem =
+          { pkgs, ... }:
+          {
+            formatter = pkgs.nixfmt-tree;
+            devShells.default = import ./shell.nix { inherit pkgs; };
+            packages.default = pkgs.callPackage ./default.nix { inherit pkgs; };
+          };
+        flake.nixosModules = {
+          server = import ./module.nix self;
+        };
+      }
+    );
 }
