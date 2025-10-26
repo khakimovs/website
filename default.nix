@@ -61,4 +61,12 @@ pkgs.buildNpmPackage rec {
     cp -r ${exec} $out/bin/${manifest.name}-start
   '';
 
+  meta = with pkgs.lib; {
+    homepage = "https://khakimovs.uz";
+    mainProgram = "${manifest.name}-start";
+    description = "Website of Khakimovs Family";
+    license = with licenses; [ cc-by-40 ];
+    platforms = with platforms; linux ++ darwin;
+    maintainers = with maintainers; [ orzklv ];
+  };
 }
