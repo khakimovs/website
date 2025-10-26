@@ -7,7 +7,7 @@ flake: {
   ...
 }: let
   # Shortcut config
-  cfg = config.services.Khakimovs-website;
+  cfg = config.services.khakimovs-website;
 
   # Packaged server
   server = flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
