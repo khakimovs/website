@@ -44,3 +44,6 @@ result
 
 # nohup
 nohup.out
+
+# direnv
+.direnv
