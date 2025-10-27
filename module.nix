@@ -102,7 +102,7 @@ in
 
     users.groups.${cfg.group} = { };
 
-    systemd.services.Khakimovs-website = {
+    systemd.services.khakimovs-website = {
       description = "Official website of Khakimovs Family";
       documentation = [ "https://github.com/khakimovs" ];
 
