@@ -1,20 +1,17 @@
 # Refer to this for more:
 # https://www.reddit.com/r/NixOS/comments/1fxf0am/setting_up_a_nextjs_project_as_a_systemd_service/
-flake:
-{
+flake: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   # Shortcut config
   cfg = config.services.khakimovs-website;
 
   # Packaged server
   server = flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
-in
-{
+in {
   options = with lib; {
     services.khakimovs-website = {
       enable = mkEnableOption ''
@@ -53,18 +50,22 @@ in
 
     services.nginx.virtualHosts = lib.mkIf (cfg.enable && cfg.proxy.enable) (
       lib.debug.traceIf (builtins.isNull cfg.proxy.domain)
-        "proxy.domain can't be null, please specicy it properly!"
-        {
-          "${cfg.proxy.domain}" = {
-            forceSSL = true;
-            enableACME = true;
-            root = cfg.package;
-            # locations."/" = {
-            #   proxyPass = "http://127.0.0.1:${toString cfg.port}";
-            #   proxyWebsockets = true;
-            # };
+      "proxy.domain can't be null, please specicy it properly!"
+      {
+        "${cfg.proxy.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+          root = cfg.package;
+          locations."/" = {
+            extraConfig = ''
+              if ($request_uri ~ ^/(.*)\.html(\?|$)) {
+                  return 302 /$1;
+              }
+              try_files $uri $uri.html $uri/ =404;
+            '';
           };
-        }
+        };
+      }
     );
   };
 }
