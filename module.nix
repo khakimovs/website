@@ -1,20 +1,17 @@
 # Refer to this for more:
 # https://www.reddit.com/r/NixOS/comments/1fxf0am/setting_up_a_nextjs_project_as_a_systemd_service/
-flake:
-{
+flake: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   # Shortcut config
   cfg = config.services.khakimovs-website;
 
   # Packaged server
   server = flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
-in
-{
+in {
   options = with lib; {
     services.khakimovs-website = {
       enable = mkEnableOption ''
@@ -34,8 +31,7 @@ in
         };
 
         proxy = mkOption {
-          type =
-            with types;
+          type = with types;
             nullOr (enum [
               "nginx"
               "caddy"
@@ -100,23 +96,23 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.khakimovs-website = {
       description = "Official website of Khakimovs Family";
-      documentation = [ "https://github.com/khakimovs" ];
+      documentation = ["https://github.com/khakimovs"];
 
       environment = {
         PORT = "${toString cfg.port}";
         HOSTNAME = cfg.host;
         NODE_ENV = "production";
-        WEBSITE_RUN_FROM_PACKAGE = 1;
+        WEBSITE_RUN_FROM_PACKAGE = "1";
         NEXT_PRIVATE_CACHE_DIR = cfg.dataDir;
       };
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = cfg.user;
@@ -130,7 +126,7 @@ in
           "AF_INET"
           "AF_INET6"
         ];
-        DeviceAllow = [ "/dev/stdin r" ];
+        DeviceAllow = ["/dev/stdin r"];
         DevicePolicy = "strict";
         IPAddressAllow = "localhost";
         LockPersonality = true;
@@ -146,7 +142,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
-        ReadOnlyPaths = [ "/" ];
+        ReadOnlyPaths = ["/"];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_NETLINK"
@@ -169,33 +165,33 @@ in
 
     services.caddy.virtualHosts =
       lib.mkIf (cfg.enable && cfg.proxy.enable && cfg.proxy.proxy == "caddy")
-        (
-          lib.debug.traceIf (builtins.isNull cfg.proxy.domain)
-            "proxy.domain can't be null, please specicy it properly!"
-            {
-              "${cfg.proxy.domain}" = {
-                extraConfig = ''
-                  reverse_proxy 127.0.0.1:${toString cfg.port}
-                '';
-              };
-            }
-        );
+      (
+        lib.debug.traceIf (builtins.isNull cfg.proxy.domain)
+        "proxy.domain can't be null, please specicy it properly!"
+        {
+          "${cfg.proxy.domain}" = {
+            extraConfig = ''
+              reverse_proxy 127.0.0.1:${toString cfg.port}
+            '';
+          };
+        }
+      );
 
     services.nginx.virtualHosts =
       lib.mkIf (cfg.enable && cfg.proxy.enable && cfg.proxy.proxy == "nginx")
-        (
-          lib.debug.traceIf (builtins.isNull cfg.proxy.domain)
-            "proxy.domain can't be null, please specicy it properly!"
-            {
-              "${cfg.proxy.domain}" = {
-                forceSSL = true;
-                enableACME = true;
-                locations."/" = {
-                  proxyPass = "http://127.0.0.1:${toString cfg.port}";
-                  proxyWebsockets = true;
-                };
-              };
-            }
-        );
+      (
+        lib.debug.traceIf (builtins.isNull cfg.proxy.domain)
+        "proxy.domain can't be null, please specicy it properly!"
+        {
+          "${cfg.proxy.domain}" = {
+            forceSSL = true;
+            enableACME = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString cfg.port}";
+              proxyWebsockets = true;
+            };
+          };
+        }
+      );
   };
 }
