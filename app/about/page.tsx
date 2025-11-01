@@ -39,10 +39,7 @@ export default function AboutPage() {
           influence. We strive to contribute to society through our research, to
           pioneer change, and to inspire others through our accomplishments.
         </p>
-        <p className="mb-8">
-          <h3>We are affiliated with many organizations:</h3>
-        </p>
-
+        <h3>We are affiliated with many organizations:</h3>
         <LinkButton text="Center for Economic Research and Reforms" link="https://cerr.uz/leadership" />
         <LinkButton text="Floss Uzbekistan" link="https://floss.uz/about#team" />
       </div>

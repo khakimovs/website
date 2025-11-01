@@ -71,7 +71,7 @@ in
 
       dataDir = mkOption {
         type = types.str;
-        default = "/var/lib/khakimovs/www";
+        default = "/var/lib/khakimovs-www";
         description = ''
           The path where Khakimovs website server keeps data and possibly logs.
         '';
@@ -110,6 +110,8 @@ in
         PORT = "${toString cfg.port}";
         HOSTNAME = cfg.host;
         NODE_ENV = "production";
+        WEBSITE_RUN_FROM_PACKAGE = 1;
+        NEXT_PRIVATE_CACHE_DIR = cfg.dataDir;
       };
 
       after = [ "network-online.target" ];

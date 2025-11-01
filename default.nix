@@ -25,7 +25,7 @@ pkgs.buildNpmPackage rec {
   version = manifest.version;
 
   src = ./.;
-  npmDepsHash = "sha256-9I8/0DQV9vT/ENaauMD1n7LedIX1JxRF0Zh6fonYBxA=";
+  npmDepsHash = "sha256-U5agzXW7h7GXr89JdQkI5B+BaAXpjUuIIh1p2h0x7nM=";
 
   nativeBuildInputs = with pkgs; [
     nodejs
