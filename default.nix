@@ -18,12 +18,18 @@ pkgs.buildNpmPackage rec {
   version = manifest.version;
 
   src = ./.;
-  npmDepsHash = "sha256-U5agzXW7h7GXr89JdQkI5B+BaAXpjUuIIh1p2h0x7nM=";
+  npmDepsHash = "sha256-G0S51ozondkRrhW1jd2LCWhIIsdaNHGIzYxcX8xfbXo=";
 
   nativeBuildInputs = with pkgs; [
     nodejs
     vips
     corepack
+    typescript
+  ];
+
+  buildInputs = with pkgs; [
+    openssl
+    vips
   ];
 
   installPhase = ''
